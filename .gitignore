@@ -1,0 +1,22 @@
+# Jupyter Notebook
+.ipynb_checkpoints/
+*/.ipynb_checkpoints/*
+
+# Data files
+*.csv
+*.json
+*.xlsx
+data/raw/
+data/processed/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+.env
+venv/
+
+# OS
+.DS_Store
+Thumbs.db
