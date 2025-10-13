@@ -1,0 +1,49 @@
+[
+	{
+		"title": "Tittel A",
+		"year": 2024,
+		"author": "Forfatter",
+		"refers to": [
+			{
+				"title": "Tittel B",
+				"reason": "Bla bla bla"
+			},
+			{
+				"title": "Tittel C",
+				"reason": "Bla bla bla"
+			}
+		]
+	},
+	{
+		"title": "Tittel B",
+		"year": 2023,
+		"author": "Forfatter 2",
+		"refers to": [
+			{
+				"title": "Tittel C",
+				"reason": "Bla bla bla"
+			},
+			{
+				"title": "Tittel D",
+				"reason": "Bla bla bla"
+			}
+		]
+	},
+	{
+		"title": "Tittel C",
+		"year": 2022,
+		"author": "Forfatter 3",
+		"refers to": []
+	},
+	{
+		"title": "Tittel D",
+		"year": 2022,
+		"author": "Forfatter 4",
+		"refers to": [
+			{
+				"title": "Tittel C",
+				"reason": "Bla bla bla"
+			}
+		]
+	}
+]
