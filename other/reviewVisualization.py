@@ -2,6 +2,15 @@ import json
 import matplotlib.pyplot as plt
 import networkx as nx
 from collections import defaultdict
+import random
+
+def random_dark_color():
+    # Generate RGB values between 0-150 to ensure dark colors
+    max = 200
+    r = random.randint(0, max)
+    g = random.randint(0, max)
+    b = random.randint(0, max)
+    return f'#{r:02x}{g:02x}{b:02x}'
 
 def visualize_papers(json_file):
     """
@@ -9,6 +18,7 @@ def visualize_papers(json_file):
     Args:
         json_file: Path to JSON file or JSON data as string/list
     """
+    random.seed(42)
     # Load data
     if isinstance(json_file, str):
         try:
@@ -65,9 +75,11 @@ def visualize_papers(json_file):
     fig, ax = plt.subplots(figsize=(11, 8))
     
     # Draw edges with arrows
+    edge_colors = [random_dark_color() for _ in G.edges()]
     nx.draw_networkx_edges(
         G, pos, ax=ax,
-        edge_color="#4A4A4A",
+        #edge_color="#4A4A4A",
+        edge_color=edge_colors,
         arrows=True,
         arrowsize=5,
         arrowstyle='-|>',
@@ -89,11 +101,21 @@ def visualize_papers(json_file):
     for node in G.nodes():
         author = G.nodes[node]['author']
         year = G.nodes[node]['year']
-        # Truncate title if longer than 20 characters
-        truncated_title = node if len(node) <= 30 else node[:30-3] + '...'
-        labels[node] = f"{truncated_title}\n{author} ({year})"
+        in_degree = G.in_degree(node)
+        
+        # Break line at 30 characters, truncate at 60 with ...
+        if len(node) <= 30:
+            truncated_title = node
+        elif len(node) <= 60:
+            # Break into two lines at 30 characters
+            truncated_title = node[:30] + '-\n' + node[30:]
+        else:
+            # Break at 30 and truncate second line at 60 total
+            truncated_title = node[:30] + '-\n' + node[30:57] + '...'
+        
+        labels[node] = f"{truncated_title}\n{author} ({year}), Citations: {in_degree}"
     
-    nx.draw_networkx_labels(G, pos, labels, ax=ax, font_size=5,
+    nx.draw_networkx_labels(G, pos, labels, ax=ax, font_size=8,
                            font_weight='bold', bbox=dict(facecolor="lightgray", edgecolor="black", alpha=0.7, pad=3))
     
     # Draw edge labels (reasons for citations)
@@ -113,7 +135,7 @@ def visualize_papers(json_file):
     ax.set_yticklabels(sorted_years)
     
     ax.grid(True, alpha=0.3, axis='y')
-    ax.margins(0.2)
+    #ax.margins(0.2)
     
     plt.tight_layout()
     plt.show()
