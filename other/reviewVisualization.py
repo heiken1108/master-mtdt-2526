@@ -6,7 +6,6 @@ from collections import defaultdict
 def visualize_papers(json_file):
     """
     Visualize paper citations as a directed graph with year on y-axis.
-    
     Args:
         json_file: Path to JSON file or JSON data as string/list
     """
@@ -39,7 +38,7 @@ def visualize_papers(json_file):
             G.add_edge(source, target)
             edge_labels[(source, target)] = ref.get('reason', '')
     
-    # Create layout with year on y-axis
+    # Create layout with year on y-axis (evenly spaced)
     pos = {}
     year_groups = defaultdict(list)
     
@@ -48,60 +47,71 @@ def visualize_papers(json_file):
         year = G.nodes[node]['year']
         year_groups[year].append(node)
     
-    # Position nodes
-    sorted_years = sorted(year_groups.keys(), reverse=True)
+    # Position nodes with evenly spaced years
+    sorted_years = sorted(year_groups.keys(), reverse=False)
+    year_to_position = {year: i for i, year in enumerate(sorted_years)}
+    
     for year in sorted_years:
         nodes_in_year = year_groups[year]
         num_nodes = len(nodes_in_year)
+        y_pos = year_to_position[year]
         
         # Spread nodes horizontally
         for i, node in enumerate(nodes_in_year):
             x = (i - (num_nodes - 1) / 2) * 2
-            pos[node] = (x, year)
+            pos[node] = (x, y_pos)
     
     # Create figure
-    fig, ax = plt.subplots(figsize=(10, 7))
+    fig, ax = plt.subplots(figsize=(11, 8))
     
     # Draw edges with arrows
     nx.draw_networkx_edges(
-        G, pos, ax=ax, 
-        edge_color='#666666', 
-        arrows=True, 
-        arrowsize=25, 
+        G, pos, ax=ax,
+        edge_color="#4A4A4A",
+        arrows=True,
+        arrowsize=5,
         arrowstyle='-|>',
-        width=2.5,
+        width=1,
+        style='dashed',
         connectionstyle='arc3,rad=0.1',
-        node_size=3000,
-        min_source_margin=20,
-        min_target_margin=20
+        node_size=20,
+        min_source_margin=10,
+        min_target_margin=10
     )
     
     # Draw nodes
-    nx.draw_networkx_nodes(G, pos, ax=ax, node_color='lightblue', 
-                          node_size=3000, edgecolors='darkblue', 
-                          linewidths=2)
+    nx.draw_networkx_nodes(G, pos, ax=ax, node_color='lightblue',
+                          node_size=0, edgecolors='darkblue',
+                          linewidths=1)
     
-    # Draw labels with title and author
+    # Draw labels with truncated title and author
     labels = {}
     for node in G.nodes():
         author = G.nodes[node]['author']
         year = G.nodes[node]['year']
-        labels[node] = f"{node}\n{author} ({year})"
+        # Truncate title if longer than 20 characters
+        truncated_title = node if len(node) <= 30 else node[:30-3] + '...'
+        labels[node] = f"{truncated_title}\n{author} ({year})"
     
-    nx.draw_networkx_labels(G, pos, labels, ax=ax, font_size=9, 
-                           font_weight='bold')
+    nx.draw_networkx_labels(G, pos, labels, ax=ax, font_size=5,
+                           font_weight='bold', bbox=dict(facecolor="lightgray", edgecolor="black", alpha=0.7, pad=3))
     
     # Draw edge labels (reasons for citations)
-    nx.draw_networkx_edge_labels(
+    """ nx.draw_networkx_edge_labels(
         G, pos, edge_labels, ax=ax,
-        font_size=8,
+        font_size=4,
         font_color='#333333',
         bbox=dict(boxstyle='round,pad=0.3', facecolor='white', edgecolor='gray', alpha=0.8)
-    )
+    ) """
     
-    # Customize plot
+    # Customize plot with evenly spaced year labels
     ax.set_title('Paper Citation Network', fontsize=16, fontweight='bold', pad=20)
     ax.set_ylabel('Year', fontsize=12)
+    
+    # Set y-axis to show actual years at evenly spaced positions
+    ax.set_yticks(range(len(sorted_years)))
+    ax.set_yticklabels(sorted_years)
+    
     ax.grid(True, alpha=0.3, axis='y')
     ax.margins(0.2)
     

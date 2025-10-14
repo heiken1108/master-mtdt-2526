@@ -1,49 +1,267 @@
 [
 	{
-		"title": "Tittel A",
+		"title": "Credit Risk Prediction Using Machine Learning and Deep Learning: A Study on Credit Card Customers",
 		"year": 2024,
-		"author": "Forfatter",
+		"author": "Chang et. al.",
 		"refers to": [
 			{
-				"title": "Tittel B",
-				"reason": "Bla bla bla"
+				"title": "Integration of unsupervised and supervised machine learning algorithms for credit risk assessment.",
+				"reason": "påpeker at nyere studier har fokusert på ensemble-metoder, som kombinerer ulike maskinlæringsmodeller for kredittvurdering."
 			},
 			{
-				"title": "Tittel C",
-				"reason": "Bla bla bla"
+				"title": "FinTech and commercial banks’ performance in China: A leap forward or survival of the fittest?",
+				"reason": "foreslår at big data kan utnyttes gjennom avansert dataanalyse for å hjelpe banker med å redusere risiko og ta bedre investeringsbeslutninger med mer stabile avkastninger."
+			},
+			{
+				"title": "Toward business integrity modeling and analysis framework for risk measurement and analysis.",
+				"reason": "viser til at bruk av flere finansielle modeller parallelt kan gi mer presise resultater under ulike scenarier, inkludert investeringsvurderinger."
+			},
+			{
+				"title": "The impact of machine learning on UK financial services.",
+				"reason": "maskinlæring har fått en stadig større betydning i finanssektoren"
+			},
+			{
+				"title": "Predicting Default Payment of Credit Card Users: Applying Data Mining Techniques.",
+				"reason": "undersøkte hvordan mange kredittkortbrukere, uavhengig av betalingsevne, ofte misbruker kortene sine og pådrar seg gjeld."
+			},
+			{
+				"title": "Comparison of Accuracy of Support Vector Machine Model and Logistic Regression Model in Predicting Individual Loan Defaults.",
+				"reason": "fremhever at finansinstitusjoner må kunne forutsi lånemislighold for å redusere tap fra manglende betalinger. (SVM)"
+			},
+			{
+				"title": "Study on a prediction of P2P network loan default based on the machine learning LightGBM and XGboost algorithms according to different high dimensional data cleaning.",
+				"reason": "beskriver hvordan Light Gradient Boosting Machine (LightGBM), som ble introdusert i 2016, raskt har blitt mye brukt innen big data og maskinlæring + XGBoost"
+			},
+			{
+				"title": "Predicting Credit Risk for Unsecured Lending: A Machine Learning Approach.",
+				"reason": "utviklet en moderne kredittvurderingsmodell for usikrede lån, som kredittkort, ved bruk av maskinlæringsmetoder."
+			},
+			{
+				"title": "A study on predicting loan default based on the random forest algorithm.",
+				"reason": "utviklet en prediksjonsmodell for lånemislighold basert på random forest og sammenlignet den med beslutningstrær, logistisk regresjon og SVM."
+			},
+			{
+				"title": "Towards hybrid over- and under-sampling combination methods for classimbalanced datasets: An experimental study.",
+				"reason": "påpekte at tradisjonelle kredittscoringsmodeller ofte ikke klarer å identifisere kunder som tidlig vil misligholde lån."
+			},
+			{
+				"title": "Regulatory learning: How to supervise machine learning models? An application to credit scoring.",
+				"reason": "introduserte konseptet Regulatory Learning. De understreker at modeller ikke bare må oppnå høy prediksjonsnøyaktighet, men også overholde regulatoriske krav til forklarbarhet, transparens og robusthet"
 			}
 		]
 	},
 	{
-		"title": "Tittel B",
+		"title": "Assessing the Loss Given Default of Bank Loans Using the Hybrid Algorithms Multi-Stage Model",
 		"year": 2023,
-		"author": "Forfatter 2",
+		"author": "Mengting Fan et. al.",
 		"refers to": [
 			{
-				"title": "Tittel C",
-				"reason": "Bla bla bla"
+				"title": "Improvements in loss given default forecasts for bank loans.",
+				"reason": "accurate forecasts for LGD may generally provide a competitive advantage for the applying financial institution, and therefore, banks use a variety of methodologies to estimate it. && Multi-stage"
 			},
 			{
-				"title": "Tittel D",
-				"reason": "Bla bla bla"
+				"title": "Comparisons of linear regression and survival analysis using single and mixture distributions approaches in modelling LGD.",
+				"reason": "LGD følger ikke normalfordeling"
+			},
+			{
+				"title": "Opening the black box–Quantile neural networks for loss given default prediction.",
+				"reason": "Enten betalt fult eller ikke"
+			},
+			{
+				"title": "Benchmarking regression algorithms for loss given default modeling.",
+				"reason": "Enten betalt fult eller ikke"
+			},
+			{
+				"title": "Loss given default models incorporating macroeconomic variables for credit cards.",
+				"reason": "Multi-stage && propose a multi-stage model for LGD prediction (consisting of two LR classifications and an OLS regression) and find that it is important to incorporate macroeconomic features into the developed model."
+			},
+			{
+				"title": "Predicting loss given default using post-default information.",
+				"reason": "Multi-stage && added the disclosure of post default information to build two models, namely the hierarchical (two-stage) and hybrid models, to predict LGD separately."
+			},
+			{
+				"title": "Basel II Problem Solving, QFRMC Workshop and Conference on Basel II & Credit Risk Modelling in Consumer Lending",
+				"reason": "Multi-stage"
+			},
+			{
+				"title": "Forecasting loss given default of bank loans with multi-stage model.",
+				"reason": "Multi-stage && analyse the factors influencing LGD using Japanese bank loan data and develop a multi-stage model for predicting the LGD and expected loss (EL)"
+			},
+			{
+				"title": "Assessing credit risk of commercial customers using hybrid machine learning algorithms.",
+				"reason": "In addition, an over-reliance on a supervised algorithm can lead to overfitting problems"
+			},
+			{
+				"title": "Integration of unsupervised and supervised machine learning algorithms for credit risk assessment.",
+				"reason": "In addition, an over-reliance on a supervised algorithm can lead to overfitting problems && Et annet hovedfokus innen LGD-prediksjon er å skaffe reelle kredittdata, ettersom kundedata er konfidensielle for de fleste finansinstitusjoner, og forskere derfor ikke har tilgang til slike data"
+			},
+			{
+				"title": "Bank loan recovery rates: Measuring and nonparametric density estimation.",
+				"reason": "Fordelingen til LGD - The relevant literature on LGDs has different streams. Some research endeavours aim to gauge the LGD distribution for credit portfolio modelling"
+			},
+			{
+				"title": "On the way to recovery: A nonparametric bias free estimation of recovery rate densities.",
+				"reason": "Fordelingen til LGD - The relevant literature on LGDs has different streams. Some research endeavours aim to gauge the LGD distribution for credit portfolio modelling"
 			}
 		]
 	},
 	{
-		"title": "Tittel C",
-		"year": 2022,
-		"author": "Forfatter 3",
+		"title": "Loss given default models incorporating macroeconomic variables for credit cards",
+		"year": 2007,
+		"author": "Bellotti & Crook",
+		"refers to": [
+			{
+				"title": "Recovery rates in the banking industry: stylised facts emerging from the Italian experience.",
+				"reason": "published empirical LGD models for a sample of 20,724 Italian accounts, including both small businesses and households."
+			},
+			{
+				"title": "Modeling the effect of macroeconomic factors on corporate default and credit rating transitions.",
+				"reason": "They found that many of these MVs were significant explanatory variables."
+			}
+		]
+	},
+	{
+		"title": "Integration of unsupervised and supervised machine learning algorithms for credit risk assessment.",
+		"year": 2019,
+		"author": "Bao et. al.",
 		"refers to": []
 	},
 	{
-		"title": "Tittel D",
+		"title": "FinTech and commercial banks’ performance in China: A leap forward or survival of the fittest?",
+		"year": 2021,
+		"author": "Chen et. al.",
+		"refers to": []
+	},
+	{
+		"title": "Toward business integrity modeling and analysis framework for risk measurement and analysis.",
+		"year": 2020,
+		"author": "Chang et al.",
+		"refers to": []
+	},
+	{
+		"title": "The impact of machine learning on UK financial services.",
+		"year": 2021,
+		"author": "Buchanan & Wright",
+		"refers to": []
+	},
+	{
+		"title": "Predicting Default Payment of Credit Card Users: Applying Data Mining Techniques.",
+		"year": 2018,
+		"author": "Ullah et al.",
+		"refers to": []
+	},
+	{
+		"title": "Comparison of Accuracy of Support Vector Machine Model and Logistic Regression Model in Predicting Individual Loan Defaults.",
+		"year": 2018,
+		"author": "Dm & Mm",
+		"refers to": []
+	},
+	{
+		"title": "Study on a prediction of P2P network loan default based on the machine learning LightGBM and XGboost algorithms according to different high dimensional data cleaning.",
+		"year": 2018,
+		"author": "Ma et al.",
+		"refers to": []
+	},
+	{
+		"title": "Predicting Credit Risk for Unsecured Lending: A Machine Learning Approach.",
+		"year": 2021,
+		"author": "Naik",
+		"refers to": []
+	},
+	{
+		"title": "A study on predicting loan default based on the random forest algorithm.",
+		"year": 2019,
+		"author": "Zhu et al.",
+		"refers to": []
+	},
+	{
+		"title": "Towards hybrid over- and under-sampling combination methods for classimbalanced datasets: An experimental study.",
+		"year": 2023,
+		"author": "Lin et al.",
+		"refers to": []
+	},
+	{
+		"title": "Regulatory learning: How to supervise machine learning models? An application to credit scoring.",
+		"year": 2018,
+		"author": "Guégan & Hassani",
+		"refers to": []
+	},
+	{
+		"title": "Improvements in loss given default forecasts for bank loans.",
+		"year": 2013,
+		"author": "Gürtler & Hibbeln",
+		"refers to": []
+	},
+	{
+		"title": "Comparisons of linear regression and survival analysis using single and mixture distributions approaches in modelling LGD.",
+		"year": 2012,
+		"author": "Zhang & Thomas",
+		"refers to": []
+	},
+	{
+		"title": "Opening the black box–Quantile neural networks for loss given default prediction.",
 		"year": 2022,
-		"author": "Forfatter 4",
-		"refers to": [
-			{
-				"title": "Tittel C",
-				"reason": "Bla bla bla"
-			}
-		]
+		"author": "Kellner et al.",
+		"refers to": []
+	},
+	{
+		"title": "Benchmarking regression algorithms for loss given default modeling.",
+		"year": 2012,
+		"author": "Loterman et al.",
+		"refers to": []
+	},
+	{
+		"title": "Loss given default models incorporating macroeconomic variables for credit cards.",
+		"year": 2012,
+		"author": "Bellotti & Crook",
+		"refers to": []
+	},
+	{
+		"title": "Predicting loss given default using post-default information.",
+		"year": 2021,
+		"author": "Zhou et al.",
+		"refers to": []
+	},
+	{
+		"title": "Basel II Problem Solving, QFRMC Workshop and Conference on Basel II & Credit Risk Modelling in Consumer Lending",
+		"year": 2006,
+		"author": "Lucas",
+		"refers to": []
+	},
+	{
+		"title": "Forecasting loss given default of bank loans with multi-stage model.",
+		"year": 2017,
+		"author": "Tanoue et al.",
+		"refers to": []
+	},
+	{
+		"title": "Assessing credit risk of commercial customers using hybrid machine learning algorithms.",
+		"year": 2022,
+		"author": "Machado & Karray",
+		"refers to": []
+	},
+	{
+		"title": "Bank loan recovery rates: Measuring and nonparametric density estimation.",
+		"year": 2010,
+		"author": "Calabrese & Zenga",
+		"refers to": []
+	},
+	{
+		"title": "On the way to recovery: A nonparametric bias free estimation of recovery rate densities.",
+		"year": 2004,
+		"author": "Renault & Scaillet",
+		"refers to": []
+	},
+	{
+		"title": "Recovery rates in the banking industry: stylised facts emerging from the Italian experience.",
+		"year": 2005,
+		"author": "Grippa et al.",
+		"refers to": []
+	},
+	{
+		"title": "Modeling the effect of macroeconomic factors on corporate default and credit rating transitions.",
+		"year": 2007,
+		"author": "Figlewski et al.",
+		"refers to": []
 	}
 ]
