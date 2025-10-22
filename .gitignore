@@ -5,6 +5,7 @@
 # Data files
 *.csv
 *.json
+!other/*.json
 *.xlsx
 data/raw/
 data/processed/

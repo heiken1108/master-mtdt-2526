@@ -193,6 +193,12 @@
 		"refers to": []
 	},
 	{
+		"title": "Pitfalls in Modeling Loss Given Default of Bank Loans",
+		"year": 2011,
+		"author": "Gürtler & Hibbeln",
+		"refers to": []
+	},
+	{
 		"title": "Comparisons of linear regression and survival analysis using single and mixture distributions approaches in modelling LGD.",
 		"year": 2012,
 		"author": "Zhang & Thomas",
@@ -232,7 +238,20 @@
 		"title": "Forecasting loss given default of bank loans with multi-stage model.",
 		"year": 2017,
 		"author": "Tanoue et al.",
-		"refers to": []
+		"refers to": [
+			{
+				"title": "Loss given default models incorporating macroeconomic variables for credit cards.",
+				"reason": "Multistage models have been proposed"
+			},
+			{
+				"title": "Pitfalls in Modeling Loss Given Default of Bank Loans",
+				"reason": "Multistage models have been proposed"
+			},
+			{
+				"title": "Basel II Problem Solving, QFRMC Workshop and Conference on Basel II & Credit Risk Modelling in Consumer Lending",
+				"reason": "Multistage models have been proposed"
+			}
+		]
 	},
 	{
 		"title": "Assessing credit risk of commercial customers using hybrid machine learning algorithms.",

@@ -5,7 +5,6 @@ from collections import defaultdict
 import random
 
 def random_dark_color():
-    # Generate RGB values between 0-150 to ensure dark colors
     max = 200
     r = random.randint(0, max)
     g = random.randint(0, max)
@@ -102,6 +101,7 @@ def visualize_papers(json_file):
         author = G.nodes[node]['author']
         year = G.nodes[node]['year']
         in_degree = G.in_degree(node)
+        out_degree = G.out_degree(node)
         
         # Break line at 30 characters, truncate at 60 with ...
         if len(node) <= 30:
@@ -113,10 +113,13 @@ def visualize_papers(json_file):
             # Break at 30 and truncate second line at 60 total
             truncated_title = node[:30] + '-\n' + node[30:57] + '...'
         
+        # Set background color based on out degree
+        bg_color = "lightgreen" if out_degree > 0 else "lightgray"
+        
         labels[node] = f"{truncated_title}\n{author} ({year}), Citations: {in_degree}"
-    
-    nx.draw_networkx_labels(G, pos, labels, ax=ax, font_size=8,
-                           font_weight='bold', bbox=dict(facecolor="lightgray", edgecolor="black", alpha=0.7, pad=3))
+        nx.draw_networkx_labels(G, pos, {node: labels[node]}, ax=ax, font_size=8,
+                            font_weight='bold', 
+                            bbox=dict(facecolor=bg_color, edgecolor="black", alpha=0.7, pad=3))
     
     # Draw edge labels (reasons for citations)
     """ nx.draw_networkx_edge_labels(
