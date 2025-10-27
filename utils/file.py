@@ -37,6 +37,11 @@ def load_konto_data(file_path):
 	#Convert from float to int
 	konto_frame["CreditLimitAmt"] = konto_frame["CreditLimitAmt"].astype(int)
 
+	#Convert NaN to 0
+	nan_to_0_cols = ['SumL12_Airlines', 'SumL3_Airlines', 'Last_Airlines', 'SumL12_Amusement and Entertainment', 'SumL3_Amusement and Entertainment', 'Last_Amusement and Entertainment', 'SumL12_Automobile / Vehicle Rental', 'SumL3_Automobile / Vehicle Rental', 'Last_Automobile / Vehicle Rental', 'SumL12_Business Services', 'SumL3_Business Services', 'Last_Business Services', 'SumL12_Clothing Stores', 'SumL3_Clothing Stores', 'Last_Clothing Stores', 'SumL12_Contracted Services', 'SumL3_Contracted Services', 'Last_Contracted Services', 'SumL12_Government Services', 'SumL3_Government Services', 'Last_Government Services', 'SumL12_Hotels', 'SumL3_Hotels', 'Last_Hotels', 'SumL12_Includes all lodging merchants', 'SumL3_Includes all lodging merchants', 'Last_Includes all lodging merchants', 'SumL12_Mail Order / Telephone Order Providers', 'SumL3_Mail Order / Telephone Order Providers', 'Last_Mail Order / Telephone Order Providers', 'SumL12_Miscellaneous Stores', 'SumL3_Miscellaneous Stores', 'Last_Miscellaneous Stores', 'SumL12_Others', 'SumL3_Others', 'Last_Others', 'SumL12_Professional Services and Membership Organizations', 'SumL3_Professional Services and Membership Organizations', 'Last_Professional Services and Membership Organizations', 'SumL12_Repair Services', 'SumL3_Repair Services', 'Last_Repair Services', 'SumL12_Retail Stores', 'SumL3_Retail Stores', 'Last_Retail Stores', 'SumL12_Service Providers', 'SumL3_Service Providers', 'Last_Service Providers', 'SumL12_Transportation', 'SumL3_Transportation', 'Last_Transportation', 'SumL12_Utilities', 'SumL3_Utilities', 'Last_Utilities', 'SumL12_Wholesale Distributors and Manufacturers', 'SumL3_Wholesale Distributors and Manufacturers', 'Last_Wholesale Distributors and Manufacturers'] 
+	for col in nan_to_0_cols:
+		konto_frame[col].fillna(0, inplace=True)
+
 	konto_frame = konto_frame.sort_values(by=['PersonId', 'YearMonth'], ascending=True)
 	return konto_frame
 
