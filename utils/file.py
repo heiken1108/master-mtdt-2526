@@ -13,7 +13,30 @@ def load_collection_data(file_path):
 
 def load_konto_data(file_path):
 	duplicate_cols = [43, 44]
-	konto_frame = pd.read_csv(file_path, usecols=[i for i in range(102) if i not in duplicate_cols], decimal=',')
+	konto_frame = pd.read_csv(file_path, sep=';', usecols=[i for i in range(102) if i not in duplicate_cols], decimal=',')
+
+	#Add common value if any NaNs
+	for col in ["Gender"]:
+		konto_frame[col] = konto_frame.groupby("PersonId")[col].transform(lambda x: x.ffill().bfill())
+
+	#Strip columns
+	for col in ["AgeGroup2", "Gender"]:
+		konto_frame[col] = konto_frame[col].astype(str).str.strip()
+
+	#Rename columns
+	konto_frame.rename(columns={"AgeGroup2": "AgeGroup"}, inplace=True)
+	konto_frame.rename(columns={"kommunenavn": "Kommunenavn"}, inplace=True)
+
+	#Drop columns
+	cols_to_drop = ["kommunenr", "GeneralStatus"]
+	konto_frame.drop(columns=cols_to_drop, inplace=True)
+
+	#Fill nan Kommunenavn with Ukjent
+	konto_frame["Kommunenavn"].fillna("UKJENT", inplace=True)
+
+	#Convert from float to int
+	konto_frame["CreditLimitAmt"] = konto_frame["CreditLimitAmt"].astype(int)
+
 	konto_frame = konto_frame.sort_values(by=['PersonId', 'YearMonth'], ascending=True)
 	return konto_frame
 

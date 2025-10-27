@@ -1,4 +1,3 @@
-import pandas as pd
 from utils import file
 
 def get_collection_ids():

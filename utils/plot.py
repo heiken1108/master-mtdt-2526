@@ -17,8 +17,9 @@ def pairplot(df, columns=[], figsize=figsize):
 
 def correlation_matrix(df: pd.DataFrame, columns=[], figsize=figsize):
 	if len(columns) < 1:
-		return
-	vis_frame = df[columns]
+		vis_frame = df
+	else:
+		vis_frame = df[columns]
 	corr = vis_frame.corr()
 	plt.figure(figsize=figsize)
 	sns.heatmap(corr, annot=True, cmap="coolwarm")
