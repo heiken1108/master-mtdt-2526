@@ -1,15 +1,55 @@
 import pandas as pd
 
 def load_collection_data(file_path):
-	collection_frame = pd.read_csv(file_path, sep=';', decimal=',')
+	collection_frame = pd.read_csv(file_path, sep=';', decimal=',', encoding="utf-8")
+
+	#Reformat date-columns for readability
+	collection_frame = reformat_date_cols_collection(collection_frame)
+
+	#Rename columns
+	collection_frame.rename(columns={"yearmonth": "YearMonth"}, inplace=True)
+	collection_frame.rename(columns={"collectionid": "Collectionid"}, inplace=True)
+	collection_frame.rename(columns={"registreringsmaaned": "Registreringsmaaned"}, inplace=True)
+	collection_frame.rename(columns={"producttype": "Producttype"}, inplace=True)
+	collection_frame.rename(columns={"productname": "Productname"}, inplace=True)
+	collection_frame.rename(columns={"CollectionOpenedDateId": "CollectionOpenedDate"}, inplace=True)
+	collection_frame.rename(columns={"CollectionClosedDateId": "CollectionClosedDate"}, inplace=True)
+	collection_frame.rename(columns={"PaymentAmt": "PaymentToKredittbankenAmt"}, inplace=True)
+	collection_frame.rename(columns={"PaymentRTAmt": "CumulativePaymentToKredittbankenAmt"}, inplace=True)
+	collection_frame.rename(columns={"PrincipalPaymentAmt": "PaymentToCollectionAmt"}, inplace=True)
+	collection_frame.rename(columns={"PrincipalPaymentRTAmt": "CumulativePaymentToCollectionAmt"}, inplace=True)
+	collection_frame.rename(columns={"LossRTAmt": "CumulativeLossAmt"}, inplace=True)
+
+	#Drop unneeded columns
+	cols_to_drop = ["Producttype"]
+	collection_frame.drop(columns=cols_to_drop, inplace=True)
+
+	#Fix wrongly encoded characters
+	collection_frame["Productname"] = collection_frame["Productname"].str.replace("�", "ø", regex=False)
+
+	#Make BalanceSentAmt be positive for readability
+	collection_frame["BalanceSentAmt"] = collection_frame["BalanceSentAmt"] * -1
+
+	#Fill nan with 0
+	nan_to_0_cols = ["CumulativeLossAmt"]
+	for col in nan_to_0_cols:
+		collection_frame[col].fillna(0, inplace=True)
+	
+	#Convert float to int
+	collection_frame["MonthsInZCOV"] = collection_frame["MonthsInZCOV"].astype("Int64")
+
+
+	collection_frame = collection_frame.sort_values(by=["PersonId", "YearMonth"], ascending=True)
+	return collection_frame
+
+def reformat_date_cols_collection(df):
 	d_datecols = ['CollectionClosedDateId', 'CollectionOpenedDateId']
 	m_datecols = ['registreringsmaaned']
 	for col in d_datecols:
-		collection_frame[col] = pd.to_datetime(collection_frame[col].astype('Int64'), format='%Y%m%d', errors='coerce').dt.strftime('%d-%m-%Y')
+		df[col] = pd.to_datetime(df[col].astype('Int64'), format='%Y%m%d', errors='coerce')
 	for col in m_datecols:
-		collection_frame[col] = pd.to_datetime(collection_frame[col].astype('Int64'), format='%Y%m', errors='coerce').dt.strftime('%m-%Y')
-	collection_frame = collection_frame.sort_values(by=["PersonId", "yearmonth"], ascending=True)
-	return collection_frame
+		df[col] = pd.to_datetime(df[col].astype('Int64'), format='%Y%m', errors='coerce')
+	return df
 
 def load_konto_data(file_path):
 	duplicate_cols = [43, 44]
