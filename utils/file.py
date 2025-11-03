@@ -104,7 +104,7 @@ def load_konto_data(file_path):
     konto_frame.drop(columns=cols_to_drop, inplace=True)
 
     # Fill nan Kommunenavn with Ukjent
-    konto_frame["Kommunenavn"].fillna("UKJENT", inplace=True)
+    konto_frame["Kommunenavn"] = konto_frame["Kommunenavn"].fillna("UKJENT")
 
     # Convert from float to int
     konto_frame["CreditLimitAmt"] = konto_frame["CreditLimitAmt"].astype(int)

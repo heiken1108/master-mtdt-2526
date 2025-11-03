@@ -147,6 +147,7 @@ def add_relevant_collectionid_to_konto_frame(
     kont_copy["Collectionid"] = pd.NA
     kont_copy["Collectionid"] = kont_copy["Collectionid"].astype("object")
     kont_copy["CollectionOpenedAfter202309"] = pd.NA
+    kont_copy["CollectionHasClosedDate"] = pd.NA
     cutoff = pd.Timestamp("2023-09-01")
 
     for _, row1 in collection_id_dates.iterrows():
@@ -161,6 +162,9 @@ def add_relevant_collectionid_to_konto_frame(
         kont_copy.loc[mask, "Collectionid"] = row1["Collectionid"]
         kont_copy.loc[mask, "CollectionOpenedAfter202309"] = (
             row1["CollectionOpenedDate"] >= cutoff
+        )
+        kont_copy.loc[mask, "CollectionHasClosedDate"] = pd.notna(
+            row1["CollectionClosedDate"]
         )
 
     return kont_copy
