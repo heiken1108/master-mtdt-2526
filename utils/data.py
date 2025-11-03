@@ -107,6 +107,23 @@ def konto_profile_data(konto_frame):
     return df_last
 
 
+def reorder_column(df: pd.DataFrame, col: str, position: int) -> pd.DataFrame:
+    if col not in df.columns:
+        raise ValueError(f"Column '{col}' does not exist in the DataFrame.")
+
+    n_cols = len(df.columns)
+    if position < 0 or position > n_cols - 1:
+        raise ValueError(
+            f"Position must be between 0 and {n_cols - 1}, got {position}."
+        )
+
+    cols = list(df.columns)
+    cols.remove(col)
+    cols.insert(position, col)
+
+    return df[cols].copy()
+
+
 # Relativt treg på grunn av sekvensiell for-løkke søk, men har foreløpig ingen bedre måter å sikre at det blir riktig på. Må huske å tenke på at en person kan ha flere accounts når man analyserer
 def add_relevant_collectionid_to_konto_frame(
     konto_frame: pd.DataFrame, collection_frame: pd.DataFrame
@@ -126,8 +143,11 @@ def add_relevant_collectionid_to_konto_frame(
         .groupby("Collectionid")
         .tail(1)
     )
+    # Sørg for at den er sortert riktig
     kont_copy["Collectionid"] = pd.NA
     kont_copy["Collectionid"] = kont_copy["Collectionid"].astype("object")
+    kont_copy["CollectionOpenedAfter202309"] = pd.NA
+    cutoff = pd.Timestamp("2023-09-01")
 
     for _, row1 in collection_id_dates.iterrows():
         mask = (
@@ -139,6 +159,9 @@ def add_relevant_collectionid_to_konto_frame(
             & (kont_copy["Collectionid"].isna())
         )
         kont_copy.loc[mask, "Collectionid"] = row1["Collectionid"]
+        kont_copy.loc[mask, "CollectionOpenedAfter202309"] = (
+            row1["CollectionOpenedDate"] >= cutoff
+        )
 
     return kont_copy
 
