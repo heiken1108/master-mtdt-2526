@@ -3,3 +3,5 @@
 from .file import *
 from .plot import *
 from .data import *
+from .stat import *
+from .models import *

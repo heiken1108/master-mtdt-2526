@@ -15,6 +15,19 @@ def pairplot(df, columns=[], figsize=figsize):
 	sns.pairplot(vis_frame)
 	plt.show()
 
+def heatmap_plot(df, columns=[], figsize=figsize, drop_0=False, title="Heatmap"):
+	if len(columns) < 1:
+		vis_frame = df
+	else:
+		vis_frame = df[columns]
+	if drop_0:
+		vis_frame = vis_frame.loc[:, (vis_frame != 0).any()]
+		vis_frame = vis_frame.loc[(vis_frame != 0).any(axis=1), :]
+	plt.figure(figsize=figsize)
+	sns.heatmap(vis_frame, annot=True, cmap="coolwarm", center=0)
+	plt.title(title)
+	plt.show()
+
 def correlation_matrix(df: pd.DataFrame, columns=[], figsize=figsize):
 	if len(columns) < 1:
 		vis_frame = df
@@ -99,4 +112,15 @@ def residual_plot(y_true, preds, figsize=figsize):
 	plt.set_ylabel("Residuals", fontsize=11)
 	plt.set_title("Residual plot", fontsize=12, fontweight='bold')
 	plt.grid(True, alpha=0.3)
+	plt.show()
+
+def multi_linear_step_plot(dfs, value_col: str, id_col: str):
+	plt.figure(figsize=figsize)
+	for df in dfs:
+		plt.plot(df.index, df[value_col], marker='o', label=f'{id_col}: {df[id_col][0]}')
+	plt.xlabel("Step")
+	plt.ylabel(value_col)
+	plt.title(f"{value_col} per {id_col}")
+	plt.legend()
+	plt.grid(True)
 	plt.show()
