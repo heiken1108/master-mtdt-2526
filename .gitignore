@@ -6,6 +6,7 @@
 *.csv
 *.json
 !other/*.json
+!notebooks/prod/results/*
 *.xlsx
 data/raw/
 data/processed/

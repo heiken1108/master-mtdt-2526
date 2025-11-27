@@ -1,0 +1,159 @@
+{
+    "cv_folds": 5,
+    "n_iter": 50,
+    "search_type": "random",
+    "eq0": {
+        "rf": {
+            "max_depth": null,
+            "max_features": "sqrt",
+            "min_samples_leaf": 1,
+            "min_samples_split": 3,
+            "n_estimators": 179,
+            "cv_score": 0.9506067143223499
+        },
+        "gb": {
+            "learning_rate": 0.06762754764491,
+            "max_depth": 9,
+            "min_samples_split": 12,
+            "n_estimators": 292,
+            "subsample": 0.8827429375390468,
+            "cv_score": 0.9453788678360221
+        },
+        "ada": {
+            "learning_rate": 1.851561046543922,
+            "n_estimators": 249,
+            "cv_score": 0.9205026527643001
+        },
+        "dt": {
+            "max_depth": 15,
+            "max_features": null,
+            "min_samples_leaf": 1,
+            "min_samples_split": 7,
+            "cv_score": 0.9010582448326832
+        },
+        "lr": {
+            "clf__C": 37.455011884736244,
+            "clf__penalty": "l2",
+            "clf__solver": "lbfgs",
+            "cv_score": 0.9121770451156792
+        },
+        "svc": {
+            "clf__C": 25.52853455823514,
+            "clf__gamma": 0.1387830128362224,
+            "clf__kernel": "rbf",
+            "cv_score": 0.9465964460561637
+        },
+        "knn": {
+            "clf__metric": "manhattan",
+            "clf__n_neighbors": 4,
+            "clf__p": 2,
+            "clf__weights": "distance",
+            "cv_score": 0.9338005214031749
+        }
+    },
+    "eq1": {
+        "rf": {
+            "max_depth": null,
+            "max_features": "sqrt",
+            "min_samples_leaf": 1,
+            "min_samples_split": 3,
+            "n_estimators": 179,
+            "cv_score": 0.9594152348796816
+        },
+        "gb": {
+            "learning_rate": 0.15360130393226834,
+            "max_depth": 9,
+            "min_samples_split": 4,
+            "n_estimators": 255,
+            "subsample": 0.7564242430292963,
+            "cv_score": 0.9565106534793465
+        },
+        "ada": {
+            "learning_rate": 1.851561046543922,
+            "n_estimators": 249,
+            "cv_score": 0.9338100028671728
+        },
+        "dt": {
+            "max_depth": 15,
+            "max_features": null,
+            "min_samples_leaf": 1,
+            "min_samples_split": 7,
+            "cv_score": 0.9194268893587726
+        },
+        "lr": {
+            "clf__C": 45.60799842170359,
+            "clf__penalty": "l2",
+            "clf__solver": "lbfgs",
+            "cv_score": 0.9191274681660992
+        },
+        "svc": {
+            "clf__C": 25.52853455823514,
+            "clf__gamma": 0.1387830128362224,
+            "clf__kernel": "rbf",
+            "cv_score": 0.9562581565034354
+        },
+        "knn": {
+            "clf__metric": "manhattan",
+            "clf__n_neighbors": 4,
+            "clf__p": 2,
+            "clf__weights": "uniform",
+            "cv_score": 0.9476354236912812
+        }
+    },
+    "tie": {
+        "rf": {
+            "max_depth": null,
+            "max_features": "sqrt",
+            "min_samples_leaf": 1,
+            "min_samples_split": 3,
+            "n_estimators": 179,
+            "cv_score": 0.9604041583385203
+        },
+        "gb": {
+            "learning_rate": 0.06762754764491,
+            "max_depth": 9,
+            "min_samples_split": 12,
+            "n_estimators": 292,
+            "subsample": 0.8827429375390468,
+            "cv_score": 0.956242185717986
+        },
+        "ada": {
+            "learning_rate": 1.851561046543922,
+            "n_estimators": 249,
+            "cv_score": 0.9318744353935589
+        },
+        "dt": {
+            "max_depth": null,
+            "max_features": null,
+            "min_samples_leaf": 4,
+            "min_samples_split": 5,
+            "cv_score": 0.9188265206840871
+        },
+        "lr": {
+            "clf__C": 61.16631604882809,
+            "clf__penalty": "l2",
+            "clf__solver": "lbfgs",
+            "cv_score": 0.9193346890331359
+        },
+        "svc": {
+            "clf__C": 25.52853455823514,
+            "clf__gamma": 0.1387830128362224,
+            "clf__kernel": "rbf",
+            "cv_score": 0.9571046530658531
+        },
+        "knn": {
+            "clf__metric": "manhattan",
+            "clf__n_neighbors": 4,
+            "clf__p": 2,
+            "clf__weights": "uniform",
+            "cv_score": 0.9473041935197035
+        }
+    },
+    "regressor": {
+        "learning_rate": 0.05792741232827072,
+        "max_depth": 2,
+        "max_features": 0.7921321619603103,
+        "n_estimators": 20,
+        "subsample": 0.679486272613669
+    }
+}

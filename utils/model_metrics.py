@@ -6,6 +6,73 @@ from sklearn.metrics import (
 import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
+from sklearn.ensemble import (
+    RandomForestClassifier,
+    RandomForestRegressor,
+    GradientBoostingClassifier,
+    AdaBoostClassifier,
+    GradientBoostingRegressor,
+)
+from sklearn.linear_model import LogisticRegression
+from sklearn.svm import SVC
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.pipeline import Pipeline
+from sklearn.preprocessing import StandardScaler
+import os
+import json
+
+classifiers = {
+    # Tree-baserte modeller
+    "rf": lambda: RandomForestClassifier(n_estimators=100, random_state=42),
+    "gb": lambda: GradientBoostingClassifier(n_estimators=100, random_state=42),
+    "ada": lambda: AdaBoostClassifier(n_estimators=100, random_state=42),
+    "dt": lambda: DecisionTreeClassifier(random_state=42),
+    # Modeller som bør scales
+    "lr": lambda: Pipeline(
+        [
+            ("scaler", StandardScaler()),
+            ("clf", LogisticRegression(max_iter=2000, random_state=42)),
+        ]
+    ),
+    "svc": lambda: Pipeline(
+        [("scaler", StandardScaler()), ("clf", SVC(random_state=42))]
+    ),
+    "knn": lambda: Pipeline(
+        [("scaler", StandardScaler()), ("clf", KNeighborsClassifier(n_neighbors=5))]
+    ),
+}
+
+
+def load_json(file_path):
+    if not os.path.exists(file_path):
+        raise FileNotFoundError(f"Could not find: {file_path}")
+
+    with open(file_path, "r") as f:
+        return json.load(f)
+
+
+def build_model_from_config(
+    step_type: str, model_code: str, file_path="results/BestParams.json"
+):
+    config = load_json(file_path)
+
+    # Get params from json-dict
+    if model_code == "regressor":
+        params = config.get("regressor", {})
+    else:
+        params = config[step_type][model_code]
+    params = {k: v for k, v in params.items() if k != "cv_score"}
+
+    # Build base model
+    if model_code not in classifiers and model_code != "regressor":
+        raise ValueError(f"Unknown model_code: {model_code}")
+
+    if model_code == "regressor":
+        return GradientBoostingRegressor(**params)
+    model = classifiers[model_code]()
+    model.set_params(**params)
+    return model
 
 
 def get_metrics(y_pred: np.ndarray, y_test: np.ndarray) -> dict:
@@ -196,39 +263,62 @@ def plot_bins(
     plt.show()
 
 
+import math
+import matplotlib.pyplot as plt
+
+
 def plot_top_n_by_columns(
     df: pd.DataFrame,
     col_tuples,
     n: int = 10,
-    label_cols=["Classifier equal 0", "Classifier equal 1", "Tie breaker"],
+    cols_per_row: int = 3,
 ):
-    for col, ascending in col_tuples:
+    label_cols = ["Classifier equal 0", "Classifier equal 1", "Tie breaker"]
+    num_plots = len(col_tuples)
+
+    # Compute subplot grid
+    rows = math.ceil(num_plots / cols_per_row)
+    fig, axes = plt.subplots(rows, cols_per_row, figsize=(6 * cols_per_row, 5 * rows))
+
+    # Flatten axes to 1D list
+    if num_plots == 1:
+        axes = [axes]
+    else:
+        axes = axes.flatten()
+
+    for idx, (col, ascending) in enumerate(col_tuples):
+        ax = axes[idx]
+
+        # --- Data Prep ---
         sorted_df = df.sort_values(col, ascending=ascending)
-        top = sorted_df.drop_duplicates(subset=col).head(n)
+        top = sorted_df.drop_duplicates(subset=[col] + label_cols).head(n)
 
         labels = top[label_cols].apply(
-            lambda row: f"{row[label_cols[0]]}, "
-            f"{row[label_cols[1]]}, "
-            f"{row[label_cols[2]]}",
+            lambda row: f"{row[label_cols[0]]}, {row[label_cols[1]]}, {row[label_cols[2]]}",
             axis=1,
         )
         values = top[col]
 
+        # Reverse order for better readable barh
         labels = labels[::-1]
         values = values[::-1]
 
         vmin = top[col].min()
         vmax = top[col].max()
-
-        # Plot
-        plt.figure(figsize=(12, 6))
-        plt.barh(labels, values)
-        plt.xlabel(col)
-        plt.ylabel("Classifiers")
-        plt.title(f"Top {n} unique values by '{col}' (ascending={ascending})")
-
         margin = (vmax - vmin) * 0.05
-        plt.xlim(vmin - margin, vmax + margin)
 
-        plt.tight_layout()
-        plt.show()
+        # --- Plot ---
+        ax.barh(labels, values)
+        ax.set_xlabel(col)
+        limit = "Bottom" if ascending else "Top"
+        order = "ascending" if ascending else "descending"
+        number = min(n, len(top))
+        ax.set_title(f"{limit} {number} by '{col}' ({order})")
+        ax.set_xlim(vmin - margin, vmax + margin)
+
+    # Hide empty axes if grid not full
+    for empty_ax in axes[num_plots:]:
+        empty_ax.set_visible(False)
+
+    plt.tight_layout()
+    plt.show()
